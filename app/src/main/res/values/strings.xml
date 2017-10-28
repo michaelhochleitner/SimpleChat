@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SimpleChat</string>
+    <string name="button_send">Send</string>
+    <string name="textfield_username">Hansi</string>
+</resources>
