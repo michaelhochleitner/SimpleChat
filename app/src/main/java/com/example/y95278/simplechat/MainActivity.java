@@ -17,13 +17,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
 
-        String serverUrl = "ws://127.0.0.1:8080/chat";
+    public void connectToServer(View view) {
+        String serverUrl = "http://127.0.0.1:8080/chat";
         URI serverURI = URI.create(serverUrl);
         this.mWebSocketClient = new MyWebSocketClient(serverURI);
         mWebSocketClient.connect();
         Log.i(TAG,"Connecting to "+serverUrl);
+        Log.i(TAG,mWebSocketClient.getReadyState().toString());
     }
+
 
     public void sendMessage(View view){
         Log.i(TAG,"sendMessage called");
