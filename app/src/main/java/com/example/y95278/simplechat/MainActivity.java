@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +22,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void connectToServer(View view) {
         String serverUrl = "http://127.0.0.1:8080/chat";
-        URI serverURI = URI.create(serverUrl);
+        URI serverURI;
+        try {
+            serverURI = new URI(serverUrl);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return;
+        }
         this.mWebSocketClient = new MyWebSocketClient(serverURI);
         mWebSocketClient.connect();
         Log.i(TAG,"Connecting to "+serverUrl);
@@ -31,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendMessage(View view){
         Log.i(TAG,"sendMessage called");
-        EditText inputTextView = (EditText) findViewById(R.id.editText);
+        EditText inputTextView = findViewById(R.id.editText);
         String inputText = inputTextView.getText().toString();
         mWebSocketClient.send(inputText);
     }
